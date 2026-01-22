@@ -1,0 +1,52 @@
+{% include 'admin/admin_header.html' %}
+<center>
+<h1>Manage Notifications</h1>
+
+<!-- Form to Add/Edit Notifications -->
+<form action="" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="notification_id" id="notification_id" value="">
+    <input type="text" name="notification" id="notification_input" placeholder="Enter notification...">
+    <br>
+    <input type="submit" name="submit" value="Submit">
+</form>
+
+<hr>
+
+<!-- Display Existing Notifications -->
+<table class="table" style="width: 500px;">
+    <tr>
+        <th>ID</th>
+        <th>Notification</th>
+        <th>Date</th>
+        <th>Actions</th>
+    </tr>
+    {% for notification in notifications %}
+    <tr>
+        <td>{{ notification.id }}</td>
+        <td>{{ notification.notification }}</td>
+        <td>{{ notification.date }}</td>
+        <td>
+            <form action="" method="post" style="display:inline;">
+                {% csrf_token %}
+                <input type="hidden" name="notification_id" value="{{ notification.id }}">
+                <button type="button" onclick="editNotification('{{ notification.id }}', '{{ notification.notification }}')">Edit</button>
+            </form>
+            <form action="" method="post" style="display:inline;">
+                {% csrf_token %}
+                <input type="hidden" name="notification_id" value="{{ notification.id }}">
+                <input type="submit" name="delete" value="Delete">
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+<script>
+    function editNotification(id, text) {
+        document.getElementById('notification_id').value = id;
+        document.getElementById('notification_input').value = text;
+    }
+</script>
+</center>
+{% include 'public/footer.html' %}

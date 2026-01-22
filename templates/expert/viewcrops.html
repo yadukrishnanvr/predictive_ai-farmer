@@ -1,0 +1,25 @@
+{% include 'expert/expert_header.html' %}
+<center>
+
+    <h2>Crops</h2>
+    <table class="table" style="width: 500px;">
+        <tr>
+            <th>ID</th>
+            <th>Crop Name</th>
+            <th>Soil Type</th>
+            <th>Temperature Range</th>
+            <th>Quantity</th>
+           
+        </tr>
+        {% for crop in fa %}
+        <tr>
+            <td>{{ crop.id }}</td>
+            <td>{{ crop.crop_name }}</td>
+            <td>{{ crop.soil_type }}</td>
+            <td>{{ crop.temperature_range }}</td>
+            <td>{{ crop.quantity }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</center>
+    {% include 'public/footer.html' %}

@@ -1,0 +1,22 @@
+{% include 'expert/expert_header.html' %}
+<center>
+    <h2>Notifications</h2>
+    <table class="table" style="width: 500px;">
+        <tr>
+            <th>ID</th>
+            <th>Notification</th>
+            <th>Date</th>
+        </tr>
+        {% for notification in notifications %}
+        <tr>
+            <td>{{ notification.id }}</td>
+            <td>{{ notification.notification }}</td>
+            <td>{{ notification.date }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    
+    </center>
+
+    {% include 'public/footer.html' %}   
+    

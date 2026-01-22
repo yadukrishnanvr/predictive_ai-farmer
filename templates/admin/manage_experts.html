@@ -1,0 +1,97 @@
+{% include 'admin/admin_header.html' %}
+
+<center>
+    <h1>Manage Agricultural Officers</h1>
+
+    <!-- Add/Edit Expert Form -->
+    <h2>Add/Edit Agricultural Officers</h2>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="hidden" name="expert_id" id="expert_id" value=""> <!-- Hidden for editing -->
+        <input type="text" name="f_name" id="f_name" placeholder="First name" required><br><br>
+        <input type="text" name="l_name" id="l_name" placeholder="Last name" required><br><br>
+        <input type="email" name="email" id="email" placeholder="Email" required><br><br>
+        <input type="text" name="specialized_area" id="specialized_area" placeholder="Specialized Area" required><br><br>
+        <input type="number" name="phone" id="phone" placeholder="Phone" required><br><br>
+        <input type="date" name="dob" id="dob" required><br><br>
+        <input type="file" name="photo" id="photo"><br><br>
+        <input type="text" name="place" id="place" placeholder="Place" required><br><br>
+        <input type="number" name="pin" id="pin" placeholder="Pin" required><br><br>
+        <input type="text" name="post" id="post" placeholder="Post" required><br><br>
+        <input type="text" name="district" id="district" placeholder="District" required><br><br>
+        <input type="text" name="state" id="state" placeholder="State" required><br><br>
+        
+        <input type="radio" name="gender" value="Male" required> Male
+        <input type="radio" name="gender" value="Female" required> Female
+        <input type="radio" name="gender" value="Other" required> Other<br><br>
+
+        <input type="text" name="username" id="username" placeholder="Username" required><br><br>
+        <input type="password" name="password" id="password" placeholder="Password" required><br><br>
+        
+        <input type="submit" name="submit" value="Save Expert">
+    </form>
+
+    <hr>
+
+    <!-- Display Existing Experts -->
+    <h2>Existing Agricultural Officers</h2>
+    <table class="table" style="width: 500px;">
+        <tr>
+            <th>ID</th>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Specialized Area</th>
+            <th>Actions</th>
+        </tr>
+        {% for expert in experts %}
+        <tr>
+            <td>{{ expert.id }}</td>
+            <td>{{ expert.first_name }} {{ expert.last_name }}</td>
+            <td>{{ expert.email }}</td>
+            <td>{{ expert.phone }}</td>
+            <td>{{ expert.specialized_area }}</td>
+            <td>
+                <!-- Edit Button -->
+                <button onclick="editExpert('{{ expert.id }}', '{{ expert.first_name }}', '{{ expert.last_name }}', '{{ expert.email }}', '{{ expert.specialized_area }}', '{{ expert.phone }}', '{{ expert.place }}', '{{ expert.pin }}', '{{ expert.post }}', '{{ expert.district }}', '{{ expert.state }}', '{{ expert.gender }}', '{{ expert.username }}', '{{ expert.password }}')">Edit</button>
+
+                <!-- Delete Form -->
+                <form action="" method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <input type="hidden" name="expert_id" value="{{ expert.id }}">
+                    <input type="submit" name="delete" value="Delete">
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</center>
+
+<script>
+    function editExpert(id, firstName, lastName, email, specializedArea, phone, place, pin, post, district, state, gender, username, password) {
+        document.getElementById('expert_id').value = id;
+        document.getElementById('f_name').value = firstName;
+        document.getElementById('l_name').value = lastName;
+        document.getElementById('email').value = email;
+        document.getElementById('specialized_area').value = specializedArea;
+        document.getElementById('phone').value = phone;
+        document.getElementById('place').value = place;
+        document.getElementById('pin').value = pin;
+        document.getElementById('post').value = post;
+        document.getElementById('district').value = district;
+        document.getElementById('state').value = state;
+        document.getElementById('username').value = username; // Added
+        document.getElementById('password').value = password; // Added
+
+        // Set gender radio button
+        if (gender === 'Male') {
+            document.querySelector('input[name="gender"][value="Male"]').checked = true;
+        } else if (gender === 'Female') {
+            document.querySelector('input[name="gender"][value="Female"]').checked = true;
+        } else {
+            document.querySelector('input[name="gender"][value="Other"]').checked = true;
+        }
+    }
+</script>
+
+{% include 'public/footer.html' %}

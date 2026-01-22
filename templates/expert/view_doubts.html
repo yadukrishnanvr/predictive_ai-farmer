@@ -1,0 +1,30 @@
+{% include 'expert/expert_header.html' %}
+<center>
+    <h1>View Doubts</h1>
+    <table class="table" style="width: 500px;">
+        <tr>
+        <th>Slno</th>
+        <th>Farmer Name</th>
+        <th>Doubt</th>
+        <th>Date</th>
+        <th>Reply</th>
+        <th>Action</th>
+    </tr>
+    {% for i in doubt %}
+    <tr>
+        <td>{{forloop.counter}}</td>
+        <td>{{ i.LOGIN.username }}</td>
+        <td>{{ i.doubt }}</td>
+        <td>{{ i.date }}</td>
+        <td>{{ i.reply }}</td>
+        <form action="" method="post">
+        <td><input type="hidden" value="{{ i.id }}" name="id">
+        <input type="text" name="reply">
+        <input type="submit" name="submit">
+        </td>
+    </form>
+    </tr>
+    {% endfor %}
+    </table>
+</center>
+    {% include 'public/footer.html' %}

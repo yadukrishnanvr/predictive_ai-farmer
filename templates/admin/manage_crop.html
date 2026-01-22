@@ -1,0 +1,62 @@
+{% include 'admin/admin_header.html' %}
+<center>
+<h1>Manage Crops</h1>
+
+<!-- Add/Edit Crop Form -->
+<h2>Add/Edit Crop</h2>
+<form action="" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="crop_id" id="crop_id" value="">
+    <input type="text" name="crop_name" id="crop_name" placeholder="Crop Name" required><br>
+    <input type="text" name="soil_type" id="soil_type" placeholder="Soil Type" required><br>
+    <input type="text" name="temperature_range" id="temperature_range" placeholder="Temperature Range" required><br>
+    <input type="text" name="quantity" id="quantity" placeholder="Quantity" required><br>
+    <input type="submit" name="submit" value="Save Crop">
+</form>
+
+<hr>
+
+<!-- Display Crops -->
+<h2>Existing Crops</h2>
+<table class="table" style="width: 500px;">
+    <tr>
+        <th>ID</th>
+        <th>Crop Name</th>
+        <th>Soil Type</th>
+        <th>Temperature Range</th>
+        <th>Quantity</th>
+        <th>Actions</th>
+    </tr>
+    {% for crop in crops %}
+    <tr>
+        <td>{{ crop.id }}</td>
+        <td>{{ crop.crop_name }}</td>
+        <td>{{ crop.soil_type }}</td>
+        <td>{{ crop.temperature_range }}</td>
+        <td>{{ crop.quantity }}</td>
+        <td>
+            <!-- Edit Button -->
+            <button onclick="editCrop('{{ crop.id }}', '{{ crop.crop_name }}', '{{ crop.soil_type }}', '{{ crop.temperature_range }}', '{{ crop.quantity }}')">Edit</button>
+            
+            <!-- Delete Form -->
+            <form action="" method="post" style="display:inline;">
+                {% csrf_token %}
+                <input class="btn btn-danger" type="hidden" name="crop_id" value="{{ crop.id }}">
+                <input class="btn btn-danger" type="submit" name="delete" value="Delete">
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+<script>
+    function editCrop(id, name, soil, temp, quantity) {
+        document.getElementById('crop_id').value = id;
+        document.getElementById('crop_name').value = name;
+        document.getElementById('soil_type').value = soil;
+        document.getElementById('temperature_range').value = temp;
+        document.getElementById('quantity').value = quantity;
+    }
+</script>
+</center>
+{% include 'public/footer.html' %}

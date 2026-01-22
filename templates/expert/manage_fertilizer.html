@@ -1,0 +1,94 @@
+{% include 'expert/expert_header.html' %}
+<center>
+    <h1>Manage Fertilizers</h1>
+    
+    <!-- Add Fertilizer Form -->
+    <div id="addForm">
+    <h2>Add Fertilizer</h2>
+        <form action="" method="post">
+            {% csrf_token %}
+            <input type="text" name="fertilizer_name" id="fertilizer_name" placeholder="Fertilizer Name" required><br>
+            <select name="crop_id" id="crop_id" required>
+                <option value="">Select Crop</option>
+                {% for crop in crops %}
+                    <option value="{{ crop.id }}">{{ crop.crop_name }}</option>
+                {% endfor %}
+            </select><br>
+            <input type="submit" name="add" value="Add Fertilizer">
+        </form>
+    </div>
+    
+    <!-- Edit Fertilizer Form (hidden initially) -->
+    <div id="editForm" style="display:none;">
+        <h2>Edit Fertilizer</h2>
+        <form action="" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="fertilizer_id" id="edit_fertilizer_id">
+            <input type="text" name="fertilizer_name" id="edit_fertilizer_name" placeholder="Fertilizer Name" required><br>
+            <select name="crop_id" id="edit_crop_id" required>
+                <option value="">Select Crop</option>
+                {% for crop in crops %}
+                    <option value="{{ crop.id }}">{{ crop.crop_name }}</option>
+                {% endfor %}
+            </select><br>
+            <input type="submit" name="edit" value="Update Fertilizer">
+        </form>
+        <button type="button" onclick="cancelEdit()">Cancel</button> <!-- Cancel button -->
+    </div>
+    
+    <hr>
+    
+    <!-- Display Fertilizers -->
+    <h2>Existing Fertilizers</h2>
+    <table class="table" style="width: 500px;">
+        <tr>
+            <th>Slno</th>
+            <th>Fertilizer Name</th>
+            <th>Associated Crop</th>
+            <th>Actions</th>
+        </tr>
+        {% for fertilizer in fertilizers %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ fertilizer.fertilizer_name }}</td>
+            <td>{{ fertilizer.CROP.crop_name }}</td>
+            <td>
+                <!-- Edit Button -->
+                <button onclick="editFertilizer('{{ fertilizer.id }}', '{{ fertilizer.fertilizer_name }}', '{{ fertilizer.CROP.id }}')">Edit</button>
+    
+                <!-- Delete Form -->
+                <form action="" method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <input type="hidden" name="fertilizer_id" value="{{ fertilizer.id }}">
+                    <input type="submit" name="delete" value="Delete">
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    
+    <script>
+        // Function to populate and show the edit form while hiding the add form
+        function editFertilizer(id, name, crop_id) {
+            // Hide the Add Fertilizer Form and show the Edit Fertilizer Form
+            document.getElementById('addForm').style.display = 'none';
+            document.getElementById('editForm').style.display = 'block';
+    
+            // Set the input values for the edit form
+            document.getElementById('edit_fertilizer_id').value = id;
+            document.getElementById('edit_fertilizer_name').value = name;
+            document.getElementById('edit_crop_id').value = crop_id;
+        }
+    
+        // Cancel the editing process and show the Add Fertilizer Form again
+        function cancelEdit() {
+            // Hide the Edit Fertilizer Form and show the Add Fertilizer Form
+            document.getElementById('editForm').style.display = 'none';
+            document.getElementById('addForm').style.display = 'block';
+        }
+    </script>
+    
+    </center>
+
+    {% include 'public/footer.html' %}
+    

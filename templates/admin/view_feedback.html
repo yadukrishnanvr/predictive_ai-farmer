@@ -1,0 +1,32 @@
+{% include 'admin/admin_header.html' %}
+<center>
+<h1>Manage Feedback</h1>
+
+<table class="table" style="width:500px;">
+    <tr>
+        <th>ID</th>
+        <th>Feedback</th>
+        <th>Date</th>
+        <th>Reply</th>
+        <th>Actions</th>
+    </tr>
+    {% for feedback in feedback_list %}
+    <tr>
+        <td>{{ feedback.id }}</td>
+        <td>{{ feedback.feedback }}</td>
+        <td>{{ feedback.date }}</td>
+        <td>{{ feedback.reply }}</td>
+        <td>
+            <!-- Reply Form -->
+            <form action="" method="post" style="display:inline;">
+                {% csrf_token %}
+                <input type="hidden" name="feedback_id" value="{{ feedback.id }}">
+                <input type="text" name="reply" placeholder="Enter reply..." required>
+                <input type="submit" value="Send Reply">
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+</center>
+{% include 'public/footer.html' %}

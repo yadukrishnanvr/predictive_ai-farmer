@@ -1,0 +1,31 @@
+{% include 'public/header.html' %}
+
+
+<center>
+<h1 class="opacity">Register</h1>
+        <form action="" method="post" class="register" enctype="multipart/form-data" >
+            <input type="text" name="f_name" placeholder="First name" required /> <br><br>
+            <input type="text" name="l_name" placeholder="Last name" required /> <br><br>
+            <input type="email" name="email" placeholder="email" required /> <br><br>
+            <input type="number" name="phone" placeholder="phone" required /> <br><br>
+            <input type="date" name="dob" required /> <br><br>
+            <input type="file" name="photo" required /> <br><br>
+            <input type="text" name="place" placeholder="Place" required /> <br><br>
+            <input type="number" name="pin" placeholder="Pin" required /> <br><br>
+            <input type="text" name="post" placeholder="Post" required /> <br><br>
+            <input type="text" name="district" placeholder="district" required /> <br><br>
+            <input type="text" name="state" placeholder="state" required /> <br><br>
+            <td>
+                <input type="radio" name="gender" value="Male" required> Male</label>
+                <input type="radio" name="gender" value="Female" required> Female</label>
+                <input type="radio" name="gender" value="Other" required> Other</label>
+            </td><br><br>
+            <input type="text" name="username" placeholder="USERNAME" required /> <br><br>
+            <input type="password" name="password" placeholder="PASSWORD" required /> <br><br>
+            <input type="submit" value="Register" name="submit" class="opacity">
+        </form>
+</center>
+
+
+
+{% include 'public/footer.html' %}

@@ -1,0 +1,83 @@
+{% include 'expert/expert_header.html' %}
+<center>
+    <h1>Manage Tips</h1>
+    
+    <!-- Add/Edit Tip Form -->
+    <div id="addForm">
+    <h2>Add/Edit Tip</h2>
+        <form action="" method="post">
+            {% csrf_token %}
+            <input type="text" name="tips" id="tips" placeholder="Tips" required><br>
+            <input type="submit" name="add" value="Add Tip">
+        </form>
+    </div>
+    
+    <!-- Edit Tip Form (hidden initially) -->
+    <div id="editForm" style="display:none;">
+        <h2>Edit Tip</h2>
+        <form action="" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="tip_id" id="edit_tip_id">
+            <input type="text" name="tips" id="edit_tips" placeholder="Tips" required><br>
+            <input type="submit" name="edit" value="Update Tip">
+        </form>
+        <button type="button" onclick="cancelEdit()">Cancel</button> <!-- Cancel button -->
+    </div>
+    
+    <hr>
+    
+    <!-- Display Tips -->
+    <h2>Existing Tips</h2>
+    <table class="table" style="width: 500px;">
+        <tr>
+            <th>SLno</th>
+            <th>Tips</th>
+            <th>Date</th>
+            <th>Actions</th>
+        </tr>
+        {% for tip in tips %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ tip.tips }}</td>
+            <td>{{ tip.date }}</td>
+            <td>
+                <!-- Edit Button -->
+                <button onclick="editTip('{{ tip.id }}', '{{ tip.tips }}', '{{ tip.date }}')">Edit</button>
+    
+                <!-- Delete Form -->
+                <form action="" method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <input type="hidden" name="tip_id" value="{{ tip.id }}">
+                    <input type="submit" name="delete" value="Delete">
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    
+    <script>
+        // Function to populate and show the edit form while hiding the add form
+        function editTip(id, tips, date) {
+            // Hide the Add Tip Form and show the Edit Tip Form
+            document.getElementById('addForm').style.display = 'none';
+            document.getElementById('editForm').style.display = 'block';
+    
+            // Set the input values for the edit form
+            document.getElementById('edit_tip_id').value = id;
+            document.getElementById('edit_tips').value = tips;
+            document.getElementById('edit_date').value = date;
+        }
+    
+        // Cancel the editing process and show the Add Tip Form again
+        function cancelEdit() {
+            // Hide the Edit Tip Form and show the Add Tip Form
+            document.getElementById('editForm').style.display = 'none';
+            document.getElementById('addForm').style.display = 'block';
+        }
+    </script>
+    
+    </center>
+
+
+    {% include 'public/footer.html' %}
+    

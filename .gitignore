@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+venv/
+.env
+
+# Django
+db.sqlite3
+media/
+
+# Data & ML
+*.csv
+*.xlsx
+models/
+model/
+
+# OS junk
+Thumbs.db
+.DS_Store

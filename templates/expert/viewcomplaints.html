@@ -1,0 +1,22 @@
+{% include 'expert/expert_header.html' %}
+<center>
+    <h1>View Complaints</h1>
+    <table class="table" style="width: 500px;">
+        <tr>
+        <th>Slno</th>
+        <th>Complaint</th>
+        <th>Date</th>
+        
+    </tr>
+    {% for i in fa %}
+    <tr>
+        <td>{{forloop.counter}}</td>
+        <td>{{ i.complaint }}</td>
+        <td>{{ i.date }}</td>
+        
+        
+    </tr>
+    {% endfor %}
+    </table>
+</center>
+    {% include 'public/footer.html' %}
