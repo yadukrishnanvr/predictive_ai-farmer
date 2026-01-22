@@ -19,3 +19,20 @@ model/
 # OS junk
 Thumbs.db
 .DS_Store
+# ML / Deep Learning junk
+*.pb
+*.tgz
+*.h5
+*.ckpt
+*.pt
+*.pth
+*.onnx
+
+# Tensorflow / training logs
+events.out.tfevents*
+retrain_logs/
+logs/
+logsold/
+
+# Large binary data
+static/logsold/
